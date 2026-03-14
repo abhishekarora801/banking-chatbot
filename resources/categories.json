@@ -1,0 +1,30 @@
+{
+    "accounts": [
+        "account", "accounts", "bank account", "savings account", "current account",
+        "account opening", "account balance", "account statement", "close account"
+    ],
+    "cards": [
+        "card", "cards", "ATM", "credit card", "debit card", "card limit",
+        "card activation", "block card", "replace card", "lost card"
+    ],
+    "fundstransfer": [
+        "fund transfer", "transfer", "money transfer", "NEFT", "RTGS",
+        "IMPS", "UPI", "send money", "payment", "transfer status"
+    ],
+    "insurance": [
+        "insurance", "policy", "premium", "life insurance", "health insurance",
+        "policy renewal", "claim", "coverage", "insured amount", "insurance benefits"
+    ],
+    "investments": [
+        "investment", "investments", "mutual funds", "fixed deposit", "recurring deposit",
+        "FD", "RD", "bonds", "stocks", "returns", "interest rate"
+    ],
+    "loans": [
+        "loan", "loans", "personal loan", "home loan", "car loan",
+        "loan application", "loan EMI", "loan status", "education loan", "top-up loan"
+    ],
+    "security": [
+        "security", "login", "password", "PIN", "authentication",
+        "OTP", "fraud", "scam", "phishing", "account safety", "cybersecurity"
+    ]
+}

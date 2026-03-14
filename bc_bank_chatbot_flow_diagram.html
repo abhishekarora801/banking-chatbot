@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BC Bank Chatbot - Flow Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .diagram-container {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+        
+        .legend {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .legend h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .startup { background: #e8f5e8; color: #2d5a2d; }
+        .ui { background: #e8f0ff; color: #1a4480; }
+        .processing { background: #fff3e0; color: #cc5500; }
+        .ai { background: #f3e5f5; color: #6a1b9a; }
+        .database { background: #e0f2f1; color: #00695c; }
+        
+        #mermaid-diagram {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #3498db;
+        }
+        
+        .feature-card h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .feature-card ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .feature-card li {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 BC Bank Chatbot</h1>
+            <p>Application Flow Diagram</p>
+        </div>
+        
+        <div class="diagram-container">
+            <div class="legend">
+                <h3>Component Legend</h3>
+                <span class="legend-item startup">Application Startup</span>
+                <span class="legend-item ui">User Interface</span>
+                <span class="legend-item processing">Query Processing</span>
+                <span class="legend-item ai">AI Response</span>
+                <span class="legend-item database">Knowledge Base</span>
+            </div>
+            
+            <div id="mermaid-diagram">
+                <div class="mermaid">
+                    flowchart TD
+                        A["👤 User Starts Application<br/><small>User launches the Streamlit app<br/>by running chatbot_app.py</small>"] --> B["🚀 chatbot_app.py<br/>Main Entry Point<br/><small>Orchestrates the entire application<br/>startup and manages the main flow</small>"]
+                        B --> C["⚙️ Initialize Session State<br/>session_manager.py<br/><small>Sets up chat history, connects to<br/>ChromaDB, and initializes variables</small>"]
+                        C --> D["🎨 Setup UI Components<br/>ui_utils.py<br/><small>Configures Streamlit page settings,<br/>loads CSS styles, creates header</small>"]
+                        D --> E["🔑 Initialize Gemini API<br/>gemini_api.py<br/><small>Validates API key and configures<br/>Google Gemini AI model settings</small>"]
+                        E --> F["💾 Connect to ChromaDB<br/>Cloud Database<br/><small>Establishes connection to vector<br/>database containing banking FAQs</small>"]
+                        F --> G["💬 Display Welcome Message<br/>Chat Interface Ready<br/><small>Shows initial greeting and<br/>prepares chat input interface</small>"]
+                        
+                        G --> H["📝 User Enters Query<br/><small>User types a banking question<br/>in the chat input field</small>"]
+                        H --> I["🔄 Process Query<br/>query_processor.py<br/><small>Receives user input and starts<br/>the query processing pipeline</small>"]
+                        
+                        I --> J{"🔍 Query Analysis<br/><small>Analyzes if this is a follow-up<br/>question or a new inquiry</small>"}
+                        J -->|Follow-up Question| K["📚 Use Previous Context<br/><small>Retrieves context from previous<br/>conversation for better understanding</small>"]
+                        J -->|New Question| L["🏷️ Categorize Query<br/>categories.json<br/><small>Maps keywords to banking categories<br/>(accounts, loans, cards, etc.)</small>"]
+                        
+                        K --> M["🔎 Semantic Search<br/>ChromaDB Collection<br/><small>Performs vector similarity search<br/>to find relevant FAQ documents</small>"]
+                        L --> M
+                        
+                        M --> N{"📊 Results Quality Check<br/><small>Evaluates search results quality<br/>using distance threshold (≤0.8)</small>"}
+                        N -->|Good Match<br/>Distance ≤ 0.8| O["📄 Format Context<br/>Retrieved Documents<br/><small>Prepares relevant FAQ content<br/>as context for AI response</small>"]
+                        N -->|No Good Match| P["❓ Generic Response<br/>Ask for Clarification<br/><small>Returns fallback message when<br/>no relevant information found</small>"]
+                        
+                        O --> Q["🤖 Generate AI Response<br/>Gemini API<br/><small>Sends context and query to<br/>Gemini AI for response generation</small>"]
+                        Q --> R["💭 Format with History<br/>Prompt Template<br/><small>Combines current query, context,<br/>and chat history into AI prompt</small>"]
+                        R --> S["📤 Return Response<br/><small>Receives generated response<br/>from Gemini AI model</small>"]
+                        
+                        S --> T["💬 Display in Chat<br/><small>Shows AI response in the<br/>chat interface to user</small>"]
+                        T --> U["📝 Update Chat History<br/><small>Saves user query and AI response<br/>to session state for context</small>"]
+                        U --> V["⏳ Wait for Next Query<br/><small>Returns to ready state,<br/>waiting for user's next question</small>"]
+                        V --> H
+                        
+                        P --> T
+                        
+                        %% Knowledge Base Setup (Background Process)
+                        W["📊 CSV Files<br/>Banking FAQ Data<br/><small>Source files containing banking<br/>questions and answers</small>"] --> X["🔧 populate_db.py<br/>Data Processing<br/><small>Reads CSV files, processes FAQ<br/>data, and prepares for embedding</small>"]
+                        X --> Y["🧠 Generate Embeddings<br/>Sentence Transformers<br/><small>Converts text to vector embeddings<br/>using all-MiniLM-L6-v2 model</small>"]
+                        Y --> Z["💾 Store in ChromaDB<br/>Vector Database<br/><small>Saves embeddings and metadata<br/>to cloud-based vector database</small>"]
+                        Z --> F
+                        
+                        %% Styling
+                        classDef startup fill:#e8f5e8,stroke:#2d5a2d,stroke-width:2px,color:#2d5a2d
+                        classDef ui fill:#e8f0ff,stroke:#1a4480,stroke-width:2px,color:#1a4480
+                        classDef processing fill:#fff3e0,stroke:#cc5500,stroke-width:2px,color:#cc5500
+                        classDef ai fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#6a1b9a
+                        classDef database fill:#e0f2f1,stroke:#00695c,stroke-width:2px,color:#00695c
+                        classDef user fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#c62828
+                        
+                        class A,H user
+                        class B,C startup
+                        class D,G,T,U,V ui
+                        class I,J,K,L,N,P processing
+                        class E,O,Q,R,S ai
+                        class F,M,W,X,Y,Z database
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h4>🚀 Core Components</h4>
+                    <ul>
+                        <li><strong>chatbot_app.py:</strong> Main application entry point</li>
+                        <li><strong>session_manager.py:</strong> Manages chat sessions and ChromaDB connection</li>
+                        <li><strong>ui_utils.py:</strong> Streamlit UI configuration and styling</li>
+                        <li><strong>query_processor.py:</strong> Handles query analysis and routing</li>
+                        <li><strong>gemini_api.py:</strong> AI response generation</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🧠 Intelligence Features</h4>
+                    <ul>
+                        <li><strong>Semantic Search:</strong> Vector-based document retrieval</li>
+                        <li><strong>Context Awareness:</strong> Maintains conversation history</li>
+                        <li><strong>Follow-up Detection:</strong> Recognizes related questions</li>
+                        <li><strong>Category Mapping:</strong> Intelligent query classification</li>
+                        <li><strong>Quality Filtering:</strong> Ensures relevant responses</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>💾 Data Management</h4>
+                    <ul>
+                        <li><strong>ChromaDB:</strong> Cloud-based vector database</li>
+                        <li><strong>CSV Processing:</strong> Banking FAQ data ingestion</li>
+                        <li><strong>Embeddings:</strong> Sentence transformer models</li>
+                        <li><strong>Caching:</strong> Query result optimization</li>
+                        <li><strong>Metadata:</strong> Category-based filtering</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <h4>🎯 Banking Categories</h4>
+                    <ul>
+                        <li><strong>Accounts:</strong> Savings, current, statements</li>
+                        <li><strong>Cards:</strong> Credit, debit, ATM services</li>
+                        <li><strong>Transfers:</strong> NEFT, RTGS, IMPS, UPI</li>
+                        <li><strong>Loans:</strong> Personal, home, car loans</li>
+                        <li><strong>Insurance:</strong> Life, health policies</li>
+                        <li><strong>Investments:</strong> FD, RD, mutual funds</li>
+                        <li><strong>Security:</strong> Login, fraud protection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
